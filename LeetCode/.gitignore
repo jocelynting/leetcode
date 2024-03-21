@@ -4,6 +4,8 @@ out/
 !**/src/test/**/out/
 .idea/
 
+LeetCode.iml
+
 ### Eclipse ###
 .apt_generated
 .classpath
