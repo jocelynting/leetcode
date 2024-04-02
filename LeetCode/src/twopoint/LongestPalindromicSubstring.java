@@ -6,31 +6,27 @@ public class LongestPalindromicSubstring {
             return s;
         }
 
-        int start = 0, end = 0;
-        int maxLength = 0;
-        int n = s.length();
+        String result = "";
 
-        for (int i = 0; i < n; i++) {
-            int len1 = expandAroundCenter(s, i, i); // Odd length palindrome
-            int len2 = expandAroundCenter(s, i, i + 1); // Even length palindrome
-            int len = Math.max(len1, len2);
+        for (int i = 0; i < s.length(); i++) {
+            String oddString = palindromeFromCenter(s, i, i); // Odd length palindrome
+            String evenString = palindromeFromCenter(s, i, i + 1); // Even length palindrome
 
-            if (len > maxLength) {
-                maxLength = len;
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
-            }
+            result = result.length() > oddString.length() ? result : oddString;
+            result = result.length() > evenString.length() ? result : evenString;
         }
 
-        return s.substring(start, end + 1);
+        return result;
     }
 
-    private int expandAroundCenter(String s, int left, int right) {
+    private String palindromeFromCenter(String s, int left, int right) {
         while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
             left--;
             right++;
         }
-        return right - left - 1;
+        // left + 1 because when the chars are same, left--, so need to +1 to the right spot
+        // right stay the same because substring is [ )
+        return s.substring(left + 1, right);
     }
 
     public static void main(String[] args) {
