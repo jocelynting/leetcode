@@ -1,4 +1,4 @@
-package stack;
+package designclass;
 
 import java.util.Stack;
 
