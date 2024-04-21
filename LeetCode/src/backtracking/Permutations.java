@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Permutations {
-
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        backtracking(nums, new ArrayList<>(), result);
-        return result;
+        List<List<Integer>> results = new ArrayList<>();
+        backtracking(results, new ArrayList<>(), nums);
+        return results;
     }
 
-    private void backtracking(int [] nums, List<Integer> current, List<List<Integer>> result){
-        if(current.size() == nums.length){
-            result.add(new ArrayList<>(current));
-        } else{
-            for(int i = 0; i < nums.length; i++){
-                if(current.contains(nums[i])) continue;
-                current.add(nums[i]);
-                backtracking(nums, current, result);
-                current.remove(current.size() - 1);
-            }
+    private void backtracking(List<List<Integer>> results, List<Integer> current, int[] nums) {
+        if (current.size() == nums.length) {
+            results.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int num : nums) {
+            if (current.contains(num)) continue;
+            current.add(num);
+            backtracking(results, current, nums);
+            current.remove(current.size() - 1);
         }
     }
 

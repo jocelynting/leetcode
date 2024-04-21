@@ -1,10 +1,54 @@
 package linkedlist;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class ReverseKGroup {
+
     public ListNode reverseKGroup(ListNode head, int k) {
+//        return reverseKGroupByDeque(head, k);
+        return reverseKGroupByListNode(head, k);
+    }
+
+    public ListNode reverseKGroupByListNode(ListNode head, int k) {
+        if (head == null || k == 1) {
+            return head;
+        }
+
+        ListNode cur = head;
+        int count = 0;
+
+        while (count < k && cur != null) {
+            count++;
+            cur = cur.next;
+        }
+
+        if (count == k) {
+            ListNode reversedHead = reverseLinkedList(head, k);
+            head.next = reverseKGroup(cur, k);
+            return reversedHead;
+        }
+
+        return head;
+    }
+
+    private ListNode reverseLinkedList(ListNode head, int k) {
+        ListNode next = null;
+        ListNode cur = head;
+
+        while (k > 0) {
+            ListNode temp = cur.next;
+            cur.next = next;
+            next = cur;
+            cur = temp;
+            k--;
+        }
+
+        return next;
+    }
+
+
+    public ListNode reverseKGroupByDeque(ListNode head, int k) {
         if (head == null || k == 1) {
             return head;
         }
@@ -13,8 +57,7 @@ public class ReverseKGroup {
         ListNode prev = dummy;
         ListNode node = head;
 
-
-        Deque<ListNode> queue = new ArrayDeque<>();
+        Deque<ListNode> queue = new LinkedList<>();
 
         while (queue.size() < k){
             if (node == null){
@@ -39,56 +82,6 @@ public class ReverseKGroup {
 
         return dummy.next;
     }
-
-//    public ListNode reverseKGroup(ListNode head, int k) {
-//        if (head == null || k == 1) {
-//            return head;
-//        }
-//
-//        ListNode dummy = new ListNode(0,head);
-//        ListNode prev = dummy;
-//
-//        int length = getLength(head);
-//
-//        for (int i = 0; i < length / k; i++) {
-//            prev = reverseGroup(prev, k);
-//        }
-//
-//        return dummy.next;
-//    }
-//
-//    private int getLength(ListNode head) {
-//        int length = 0;
-//        while (head != null) {
-//            length++;
-//            head = head.next;
-//        }
-//        return length;
-//    }
-//
-//    private ListNode reverseGroup(ListNode prev, int k) {
-//        ListNode curr = prev.next;
-//        ListNode next = null;
-//        ListNode tail = prev.next;
-//
-//        for (int i = 0; i < k; i++) {
-//            if (curr == null) {
-//                // Not enough nodes to reverse, revert the changes and return
-//                prev.next = tail;
-//                return prev;
-//            }
-//
-//            ListNode temp = curr.next;
-//            curr.next = next;
-//            next = curr;
-//            curr = temp;
-//        }
-//
-//        prev.next = next;
-//        tail.next = curr;
-//
-//        return tail;
-//    }
 
     // Example usage:
     public static void main(String[] args) {
