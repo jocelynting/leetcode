@@ -5,8 +5,7 @@ import java.util.Map;
 
 public class MinimumWindowSubstring {
     public String minWindowMap(String s, String t) {
-
-        if (s == null || s.length() == 0 || t == null || t.length() == 0) {
+        if (s.length() < t.length()) {
             return "";
         }
 
@@ -60,7 +59,7 @@ public class MinimumWindowSubstring {
     }
 
     public String minWindowArray(String s, String t) {
-        if (s == null || s.length() == 0 || t == null || t.length() == 0) {
+        if (s.length() < t.length()) {
             return "";
         }
 

@@ -1,10 +1,6 @@
 package binarytree;
 
-import com.sun.source.tree.Tree;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class SerializeDeserializeBinaryTree {
 
@@ -27,18 +23,19 @@ public class SerializeDeserializeBinaryTree {
 
     public TreeNode deserialize(String data) {
         String[] strings = data.split(",");
-        List<String> list = new ArrayList<>(Arrays.asList(strings));
+        Queue<String> list = new LinkedList<>();
+        list.addAll(Arrays.asList(strings));
         return deserializeTree(list);
     }
 
-    private TreeNode deserializeTree(List<String> list) {
-        if (list.get(0).equals("null")) {
-            list.remove(0);
+    private TreeNode deserializeTree(Queue<String> list) {
+        String s = list.poll();
+
+        if (s.equals("null")) {
             return null;
         }
 
-        TreeNode root = new TreeNode(Integer.valueOf(list.get(0)));
-        list.remove(0);
+        TreeNode root = new TreeNode(Integer.parseInt(s));
         root.left = deserializeTree(list);
         root.right = deserializeTree(list);
         return root;
