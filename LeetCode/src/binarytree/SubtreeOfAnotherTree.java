@@ -3,22 +3,27 @@ package binarytree;
 public class SubtreeOfAnotherTree {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if (root == null) {
-            return subRoot == null;
-        }
-
-        return dfs(root,subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
-    }
-
-    private boolean dfs(TreeNode node, TreeNode subNode) {
-        if (node == null && subNode == null) {
-            return true;
-        }
-
-        if (node == null || subNode == null || node.val != subNode.val) {
             return false;
         }
 
-        return dfs(node.left,subNode.left) && dfs(node.right, subNode.right);
+        if (isSameTree(root, subRoot)) {
+            return true;
+        }
+
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    private boolean isSameTree(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+        if (t1.val != t2.val) {
+            return false;
+        }
+        return isSameTree(t1.left, t2.left) && isSameTree(t1.right, t2.right);
     }
 
     public static void main(String[] args) {
