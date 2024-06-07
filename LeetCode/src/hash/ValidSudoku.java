@@ -1,7 +1,4 @@
-package hashtable;
-
-import java.util.HashSet;
-import java.util.Set;
+package hash;
 
 public class ValidSudoku {
 //    public boolean isValidSudoku(char[][] board) {
