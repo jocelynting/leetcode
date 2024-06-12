@@ -1,63 +1,46 @@
 package hash;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ValidSudoku {
-//    public boolean isValidSudoku(char[][] board) {
-//
-//        Set<String> set = new HashSet<>();
-//
-//        int rows = board.length;
-//        int cols = board[0].length;
-//
-//        for (int i = 0; i < rows; i++) {
-//            for (int j = 0; j < cols; j++) {
-//                if (board[i][j] != '.') {
-//                    if (!set.add(board[i][j] + " in row " + i) ||
-//                            !set.add(board[i][j] + " in col " + j) ||
-//                            !set.add(board[i][j] + " in sub-box " + i / 3 + "-" + j / 3)) {
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-//
-//        return true;
-//    }
-
     public boolean isValidSudoku(char[][] board) {
+        Set<Character>[] rows = new HashSet[9];
+        Set<Character>[] cols = new HashSet[9];
+        Set<Character>[] boxes = new HashSet[9];
+
         for (int i = 0; i < 9; i++) {
-            boolean[] rowSeen = new boolean[9];
-            boolean[] colSeen = new boolean[9];
-            boolean[] boxSeen = new boolean[9];
+            rows[i] = new HashSet<>();
+            cols[i] = new HashSet<>();
+            boxes[i] = new HashSet<>();
+        }
 
-            for (int j = 0; j < 9; j++) {
-                if (!isValid(board[i][j], rowSeen)) {
-                    return false;
+        for (int row = 0; row < 9 ; row++) {
+            for (int col = 0; col < 9; col++) {
+                char cur = board[row][col];
+                if (cur == '.') {
+                    continue;
                 }
 
-                if (!isValid(board[j][i], colSeen)) {
+                if (rows[row].contains(cur)) {
                     return false;
                 }
+                rows[row].add(cur);
 
-                int rowIndex = 3 * (i / 3) + j / 3;
-                int colIndex = 3 * (i % 3) + j % 3;
-                if (!isValid(board[rowIndex][colIndex], boxSeen)) {
+                if (cols[col].contains(cur)) {
                     return false;
                 }
+                cols[col].add(cur);
+
+                // this means which box cur is in
+                int index = 3 * (row / 3) + col / 3;
+                if (boxes[index].contains(cur)) {
+                    return false;
+                }
+                boxes[index].add(cur);
             }
         }
 
-        return true;
-    }
-
-    private boolean isValid(char digit, boolean[] seen) {
-        if (digit == '.') {
-            return true;
-        }
-        int index = digit - '1';
-        if (seen[index]) {
-            return false;
-        }
-        seen[index] = true;
         return true;
     }
 
