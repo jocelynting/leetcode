@@ -4,10 +4,6 @@ import java.util.Arrays;
 
 public class LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-
         int n = nums.length;
         int[] dp = new int[n]; // dp[i] stores the length of the longest increasing subsequence ending at index i
         Arrays.fill(dp, 1); // Initialize each element as a subsequence of length 1
@@ -29,8 +25,7 @@ public class LongestIncreasingSubsequence {
 
     public static void main(String[] args) {
         LongestIncreasingSubsequence solution = new LongestIncreasingSubsequence();
-        int[] nums = {10,9,2,5,3,7,101,18};
-//        int[] nums = {4,10,4,3,8,9};
+        int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         System.out.println(solution.lengthOfLIS(nums)); // Output: 4
     }
 }
