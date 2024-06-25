@@ -1,12 +1,12 @@
-package dp;
+package memoization;
 
-import java.awt.image.ImageProducer;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FindNumberWaysReachKthStair {
 
     Map<String, Integer> memo;
+
     public int waysToReachStair(int k) {
         memo = new HashMap<>();
         return dfs(1, 0, k, false);
