@@ -2,9 +2,6 @@ package dp;
 
 public class MaximalSquare {
     public int maximalSquare(char[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return 0;
-        }
 
         int m = matrix.length;
         int n = matrix[0].length;
@@ -39,10 +36,10 @@ public class MaximalSquare {
 
         // Test case
         char[][] matrix = {
-                {'1','0','1','0','0'},
-                {'1','0','1','1','1'},
-                {'1','1','1','1','1'},
-                {'1','0','0','1','0'}
+                {'1', '0', '1', '0', '0'},
+                {'1', '0', '1', '1', '1'},
+                {'1', '1', '1', '1', '1'},
+                {'1', '0', '0', '1', '0'}
         };
         System.out.println(solution.maximalSquare(matrix)); // Output: 4
     }
