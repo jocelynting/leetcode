@@ -1,4 +1,4 @@
-package array;
+package interval;
 
 import java.util.Arrays;
 
@@ -26,8 +26,8 @@ public class MeetingRooms {
 
     public static void main(String[] args) {
         MeetingRooms solution = new MeetingRooms();
-        int[][] intervals1 = {{0,30},{5,10},{15,20}};
-        int[][] intervals2 = {{7,10},{2,4}};
+        int[][] intervals1 = {{0, 30}, {5, 10}, {15, 20}};
+        int[][] intervals2 = {{7, 10}, {2, 4}};
         System.out.println(solution.canAttendMeetings(intervals1));// Output: false
         System.out.println(solution.canAttendMeetings(intervals2));// Output: true
     }

@@ -1,6 +1,5 @@
 package binarytree;
 
-import java.time.temporal.Temporal;
 import java.util.*;
 
 public class BinaryTreeZigzagLevelOrderTraversal {
@@ -37,6 +36,42 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         }
 
         return results;
+
+        /*
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        boolean reverse = false;
+        int level = 1;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            level++;
+
+            List<Integer> cur = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                cur.add(node.val);
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+
+            if (level % 2 == 1) {
+                Collections.reverse(cur);
+            }
+
+            result.add(cur);
+        }
+
+        return result;
+        */
     }
 
     public static void main(String[] args) {
