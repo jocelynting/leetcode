@@ -1,58 +1,71 @@
 package graph;
 
-import java.util.Arrays;
+import java.util.*;
+
 public class Dijkstra {
-    public int[] dijkstra(int[][] graph, int source) {
-        int n = graph.length;
-        int[] distance = new int[n];
-        boolean[] visited = new boolean[n];
+    static class Edge {
+        int source;
+        int destination;
+        int weight;
 
-        Arrays.fill(distance, Integer.MAX_VALUE);
+        public Edge(int source, int destination, int weight) {
+            this.source = source;
+            this.destination = destination;
+            this.weight = weight;
+        }
+    }
 
-        distance[source] = 0;
+    public static void dijkstra(int vertices, List<Edge> edges, int source) {
+        int[] distances = new int[vertices];
+        Arrays.fill(distances, Integer.MAX_VALUE);
+        distances[source] = 0;
 
-        for (int i = 0; i < n - 1; i++) {
-            int u = minDistance(distance, visited);
-            visited[u] = true;
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        pq.offer(new int[]{source, 0});
 
-            for (int v = 0; v < n; v++) {
-                if (!visited[v] && graph[u][v] != 0 && distance[u] != Integer.MAX_VALUE && distance[u] + graph[u][v] < distance[v]) {
-                    distance[v] = distance[u] + graph[u][v];
+        Map<Integer, List<Edge>> adjacencyList = new HashMap<>();
+        for (Edge edge : edges) {
+            adjacencyList.putIfAbsent(edge.source, new ArrayList<>());
+            adjacencyList.get(edge.source).add(edge);
+        }
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int u = current[0];
+            int dist = current[1];
+
+            if (dist > distances[u]) {
+                continue;
+            }
+
+            List<Edge> adjEdges = adjacencyList.getOrDefault(u, new ArrayList<>());
+            for (Edge edge : adjEdges) {
+                int v = edge.destination;
+                int newDist = dist + edge.weight;
+                if (newDist < distances[v]) {
+                    distances[v] = newDist;
+                    pq.offer(new int[]{v, newDist});
                 }
             }
         }
 
-        return distance;
-    }
-
-    private int minDistance(int[] distance, boolean[] visited) {
-        int min = Integer.MAX_VALUE;
-        int minIndex = -1;
-
-        for (int i = 0; i < distance.length; i++) {
-            if (!visited[i] && distance[i] <= min) {
-                min = distance[i];
-                minIndex = i;
-            }
+        // Print the shortest distances from source
+        System.out.println("Shortest distances from source " + source + ":");
+        for (int i = 0; i < vertices; i++) {
+            System.out.println("Vertex " + i + ": " + distances[i]);
         }
-
-        return minIndex;
     }
 
     public static void main(String[] args) {
-        Dijkstra solution = new Dijkstra();
+        int vertices = 4;
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(0, 1, 6));
+        edges.add(new Edge(0, 2, 1));
+        edges.add(new Edge(0, 3, 5));
+        edges.add(new Edge(1, 3, 2));
+        edges.add(new Edge(2, 3, 1));
 
-        int[][] graph = {
-            {0, 2, 0, 1, 0},
-            {2, 0, 3, 0, 0},
-            {0, 3, 0, 4, 0},
-            {1, 0, 4, 0, 5},
-            {0, 0, 0, 5, 0}
-        };
-
-        int[] distance = solution.dijkstra(graph, 0);
-        for (int i = 0; i < distance.length; i++) {
-            System.out.println("Vertex " + i + " is at distance " + distance[i]);
-        }
+        int source = 0;
+        dijkstra(vertices, edges, source);
     }
 }
