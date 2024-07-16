@@ -7,12 +7,12 @@ public class GroupAnagrams {
 
         Map<String, List<String>> map = new HashMap<>();
 
-        for (String string: strs) {
+        for (String string : strs) {
             char[] letters = string.toCharArray();
             Arrays.sort(letters);
             String sortedString = new String(letters);
 
-            map.computeIfAbsent(sortedString, val -> new ArrayList<>()).add(string);
+            map.computeIfAbsent(sortedString, k -> new ArrayList<>()).add(string);
         }
 
         return new ArrayList<>(map.values());
