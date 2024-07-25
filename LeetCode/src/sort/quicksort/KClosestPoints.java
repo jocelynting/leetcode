@@ -1,4 +1,4 @@
-package quicksort;
+package sort.quicksort;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ public class KClosestPoints {
 
         quickSort(points, 0, points.length - 1);
 
-        return Arrays.copyOf(points,k);
+        return Arrays.copyOf(points, k);
     }
 
     private void quickSort(int[][] points, int l, int r) {
@@ -25,12 +25,12 @@ public class KClosestPoints {
 
         for (int i = l; i < r; i++) {
             if (pivotValue(points[i]) <= pivot) {
-                swap(points,i,p);
+                swap(points, i, p);
                 p++;
             }
         }
 
-        swap(points,p,r);
+        swap(points, p, r);
         return p;
     }
 
@@ -38,7 +38,7 @@ public class KClosestPoints {
         return point[0] * point[0] + point[1] * point[1];
     }
 
-    private void swap(int[][]points, int p1, int p2) {
+    private void swap(int[][] points, int p1, int p2) {
         int[] temp = points[p1];
         points[p1] = points[p2];
         points[p2] = temp;

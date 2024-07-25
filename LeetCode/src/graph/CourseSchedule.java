@@ -1,63 +1,17 @@
 package graph;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class CourseSchedule {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-//        return canFinishByDFS(numCourses, prerequisites);
-        return canFinishByKahnAlgorithm(numCourses, prerequisites);
-    }
-
-    private boolean canFinishByKahnAlgorithm(int numCourses, int[][] prerequisites) {
-        int[] indegrees = new int [numCourses];
         List<List<Integer>> graph = new ArrayList<>();
 
         for (int i = 0; i < numCourses; i++) {
             graph.add(new ArrayList<>());
         }
 
-        for (int[] pre: prerequisites) {
-            int preCourse = pre[1];
-            int nextCourse = pre[0];
-            graph.get(preCourse).add(nextCourse);
-            indegrees[nextCourse]++;
-        }
-
-        Queue<Integer> queue = new LinkedList<>();
-
-        for (int i = 0; i < numCourses; i++) {
-            if (indegrees[i] == 0) {
-                queue.offer(i);
-            }
-        }
-
-        int course = 0;
-
-        while (!queue.isEmpty()) {
-            int cur = queue.poll();
-            course++;
-            for (int nei: graph.get(cur)) {
-                indegrees[nei]--;
-                if (indegrees[nei] == 0) {
-                    queue.offer(nei);
-                }
-            }
-        }
-
-        return course == numCourses;
-    }
-
-    private boolean canFinishByDFS(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> graph = new ArrayList<>();
-
-        for (int i = 0; i < numCourses; i++) {
-            graph.add(new ArrayList<>());
-        }
-
-        for (int[] pre: prerequisites) {
+        for (int[] pre : prerequisites) {
             int preCourse = pre[1];
             int nextCourse = pre[0];
             graph.get(preCourse).add(nextCourse);
@@ -88,7 +42,7 @@ public class CourseSchedule {
 
         flags[course] = 1;
 
-        for (Integer pre: graph.get(course)) {
+        for (Integer pre : graph.get(course)) {
             if (!dfs(graph, flags, pre)) {
                 return false;
             }

@@ -1,4 +1,4 @@
-package graph;
+package graph.bellmanford;
 
 import java.util.Arrays;
 

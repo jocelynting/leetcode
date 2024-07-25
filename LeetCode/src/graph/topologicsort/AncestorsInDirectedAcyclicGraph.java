@@ -1,11 +1,11 @@
-package graph;
+package graph.topologicsort;
 
 import java.util.*;
 
 public class AncestorsInDirectedAcyclicGraph {
     public List<List<Integer>> getAncestors(int n, int[][] edges) {
         List<List<Integer>> graph = new ArrayList<>();
-        int[] inDegree = new int[n];
+        int[] indegree = new int[n];
 
         for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
@@ -13,12 +13,12 @@ public class AncestorsInDirectedAcyclicGraph {
 
         for (int[] edge : edges) {
             graph.get(edge[0]).add(edge[1]);
-            inDegree[edge[1]]++;
+            indegree[edge[1]]++;
         }
 
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < n; i++) {
-            if (inDegree[i] == 0) {
+            if (indegree[i] == 0) {
                 queue.offer(i);
             }
         }
@@ -28,8 +28,8 @@ public class AncestorsInDirectedAcyclicGraph {
             int node = queue.poll();
             order.add(node);
             for (int neighbor : graph.get(node)) {
-                inDegree[neighbor]--;
-                if (inDegree[neighbor] == 0) {
+                indegree[neighbor]--;
+                if (indegree[neighbor] == 0) {
                     queue.add(neighbor);
                 }
             }

@@ -1,4 +1,4 @@
-package quicksort;
+package sort.quicksort;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ public class QuickSort {
         if (l < r) {
             int pivot = partition(nums, l, r);
             System.out.println("Pivot:" + pivot);
-            quickSort(nums, l ,pivot - 1);
+            quickSort(nums, l, pivot - 1);
             quickSort(nums, pivot + 1, r);
         }
     }
@@ -19,12 +19,12 @@ public class QuickSort {
 
         for (int i = l; i < r; i++) {
             if (nums[i] <= pivot) {
-                swap(nums,i,p);
+                swap(nums, i, p);
                 p++;
             }
         }
 
-        swap(nums,p,r);
+        swap(nums, p, r);
         System.out.println("Partition Array:" + Arrays.toString(nums));
         return p;
     }
@@ -38,11 +38,7 @@ public class QuickSort {
     public static void main(String[] args) {
         QuickSort solution = new QuickSort();
         int[] nums = {3, 2, 1, 5, 6};
-
-        System.out.println("Original Array:" + Arrays.toString(nums));
-
         solution.quickSort(nums, 0, nums.length - 1);
-
-        System.out.println("\nSorted Array:"  + Arrays.toString(nums));
+        System.out.println(Arrays.toString(nums));
     }
 }
