@@ -1,4 +1,4 @@
-package unionfind;
+package graph.unionfind;
 
 public class NumberOfIslands {
     public int numIslands(char[][] grid) {

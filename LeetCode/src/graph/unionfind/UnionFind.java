@@ -1,4 +1,4 @@
-package unionfind;
+package graph.unionfind;
 
 public class UnionFind {
     private final int[] parent;
@@ -19,6 +19,7 @@ public class UnionFind {
         }
         return parent[p];
     }
+
     public void union(int p, int q) {
         int rootP = find(p);
         int rootQ = find(q);
@@ -34,6 +35,7 @@ public class UnionFind {
             }
         }
     }
+
     public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
