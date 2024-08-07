@@ -13,11 +13,12 @@ public class RabbitsInForest {
         }
 
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            int color = entry.getKey();
+            int rabbit = entry.getKey();
             int count = entry.getValue();
 
-            int groups = (color + count) / (color + 1);
-            result += groups * (color + 1);
+//            int groups = (count + rabbit) / (rabbit + 1);
+            int groups = (int) Math.ceil((double) count / (rabbit + 1));
+            result += groups * (rabbit + 1);
         }
 
         return result;
