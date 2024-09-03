@@ -25,7 +25,7 @@ public class ReverseKGroup {
 
         if (count == k) {
             ListNode reversedHead = reverseLinkedList(head, k);
-            head.next = reverseKGroup(cur, k);
+            head.next = reverseKGroupByListNode(cur, k);
             return reversedHead;
         }
 
@@ -59,8 +59,8 @@ public class ReverseKGroup {
 
         Deque<ListNode> queue = new LinkedList<>();
 
-        while (queue.size() < k){
-            if (node == null){
+        while (queue.size() < k) {
+            if (node == null) {
                 break;
             }
             queue.offerFirst(node);
@@ -73,7 +73,7 @@ public class ReverseKGroup {
             }
         }
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             prev.next = queue.pollLast();
             prev = prev.next;
         }

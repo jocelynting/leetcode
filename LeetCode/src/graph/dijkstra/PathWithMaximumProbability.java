@@ -13,8 +13,8 @@ public class PathWithMaximumProbability {
         }
 
         for (int i = 0; i < edges.length; i++) {
-            int[] edge = edges[i];
-            int u = edge[0], v = edge[1];
+            int u = edges[i][0];
+            int v = edges[i][1];
             double w = succProb[i];
             graph.get(u).add(new Edge(v, w));
             graph.get(v).add(new Edge(u, w));
@@ -29,26 +29,24 @@ public class PathWithMaximumProbability {
         while (!pq.isEmpty()) {
             Edge cur = pq.poll();
             int u = cur.node;
-            double w = cur.prob;
+            double d = cur.prob;
 
             if (u == end_node) {
-                return w;
+                return d;
             }
 
-            if (w < distance[u]) {
+            if (distance[u] > d) {
                 continue;
             }
 
-            for (Edge nei : graph.get(u)) {
-                int v = nei.node;
-                double d = nei.prob;
-                double update = d * w;
-                if (update > distance[v]) {
-                    distance[v] = update;
-                    pq.offer(new Edge(v, update));
+            for (Edge e : graph.get(u)) {
+                int v = e.node;
+                double w = e.prob;
+                if (distance[v] < d * w) {
+                    distance[v] = d * w;
+                    pq.offer(new Edge(v, distance[v]));
                 }
             }
-
         }
 
         return 0.0;
