@@ -18,7 +18,7 @@ public class RotateList {
         int steps = length - k % length;
         ListNode tail = head;
 
-        for (int i = 0; i < steps - 1; i++) {
+        for (int i = 1; i < steps; i++) {
             tail = tail.next;
         }
 
