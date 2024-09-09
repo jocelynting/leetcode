@@ -16,16 +16,19 @@ public class SymmetricTree {
         return isMirror(root.left, root.right);
     }
 
-    private boolean isMirror(TreeNode t1, TreeNode t2) {
-        if (t1 == null && t2 == null) {
+    private boolean isMirror(TreeNode n1, TreeNode n2) {
+        if (n1 == null && n2 == null) {
             return true;
         }
-        if (t1 == null || t2 == null) {
+
+        if (n1 == null || n2 == null) {
             return false;
         }
-        return (t1.val == t2.val)
-                && isMirror(t1.right, t2.left)
-                && isMirror(t1.left, t2.right);
+
+        if (n1.val != n2.val) {
+            return false;
+        }
+        return isMirror(n1.right, n2.left) && isMirror(n1.left, n2.right);
     }
 
     private boolean bfs(TreeNode root) {
@@ -38,25 +41,25 @@ public class SymmetricTree {
         queue.offer(root.right);
 
         while (!queue.isEmpty()) {
-            TreeNode t1 = queue.poll();
-            TreeNode t2 = queue.poll();
+            TreeNode n1 = queue.poll();
+            TreeNode n2 = queue.poll();
 
-            if (t1 == null && t2 == null) {
+            if (n1 == null && n2 == null) {
                 continue;
             }
 
-            if (t1 == null || t2 == null) {
+            if (n1 == null || n2 == null) {
                 return false;
             }
 
-            if (t1.val != t2.val) {
+            if (n1.val != n2.val) {
                 return false;
             }
 
-            queue.offer(t1.left);
-            queue.offer(t2.right);
-            queue.offer(t1.right);
-            queue.offer(t2.left);
+            queue.offer(n1.left);
+            queue.offer(n2.right);
+            queue.offer(n1.right);
+            queue.offer(n2.left);
         }
 
         return true;
