@@ -1,8 +1,5 @@
 package trie;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class FindLengthOfLongestCommonPrefix {
     public int longestCommonPrefix(int[] arr1, int[] arr2) {
         Trie t = new Trie();
@@ -21,6 +18,73 @@ public class FindLengthOfLongestCommonPrefix {
         return max;
     }
 
+    class Trie {
+
+        private TrieNode root;
+
+        public Trie() {
+            root = new TrieNode();
+        }
+
+        public void insert(String word) {
+            TrieNode node = root;
+            for (int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+                if (!node.containsKey(ch)) {
+                    node.put(ch, new TrieNode());
+                }
+                node = node.get(ch);
+            }
+            node.setEnd();
+        }
+
+        public int longestCommonPrefix(String word) {
+            TrieNode node = root;
+            int length = 0;
+            for (int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+                if (!node.containsKey(ch)) {
+                    break;
+                }
+                node = node.get(ch);
+                length++;
+            }
+
+            return length;
+        }
+    }
+
+    class TrieNode {
+
+        public TrieNode[] children;
+        public boolean isEnd;
+
+        public TrieNode() {
+            children = new TrieNode[10];
+        }
+
+        public boolean containsKey(char ch) {
+            return children[ch - '0'] != null;
+        }
+
+        public void put(char ch, TrieNode node) {
+            children[ch - '0'] = node;
+        }
+
+        public TrieNode get(char ch) {
+            return children[ch - '0'];
+        }
+
+        public boolean isEnd() {
+            return isEnd;
+        }
+
+        public void setEnd() {
+            isEnd = true;
+        }
+    }
+
+    /*
     class Trie {
 
         TrieNode root;
@@ -73,7 +137,7 @@ public class FindLengthOfLongestCommonPrefix {
             isEnd = true;
         }
     }
-
+    */
     public static void main(String[] args) {
         FindLengthOfLongestCommonPrefix solution = new FindLengthOfLongestCommonPrefix();
         int[] arr1 = {1, 10, 100};

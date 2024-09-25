@@ -1,12 +1,29 @@
 package designclass;
 
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 
 public class HitCounter {
 
+    private Queue<Integer> hits;
+
+    public HitCounter() {
+        hits = new LinkedList<>();
+    }
+
+    public void hit(int timestamp) {
+        hits.offer(timestamp);
+    }
+
+    public int getHits(int timestamp) {
+        while (!hits.isEmpty() && hits.peek() <= timestamp - 300) {
+            hits.poll();
+        }
+
+        return hits.size();
+    }
+
+    /*
     private Queue<Integer> hits;
     private Map<Integer, Integer> hitCount;
 
@@ -36,6 +53,7 @@ public class HitCounter {
 
         return result;
     }
+     */
 
     public static void main(String[] args) {
         HitCounter counter = new HitCounter();

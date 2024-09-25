@@ -71,7 +71,6 @@ public class SearchInRotatedSortedArray {
         return -1;
     }
 
-
     public static void main(String[] args) {
         SearchInRotatedSortedArray solution = new SearchInRotatedSortedArray();
         int[] nums = {4, 5, 6, 7, 0, 1, 2};
