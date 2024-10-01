@@ -15,25 +15,25 @@ public class AlienDictionary {
         }
 
         for (int i = 0; i < words.length - 1; i++) {
-            String first = words[i];
-            String second = words[i + 1];
+            String s1 = words[i];
+            String s2 = words[i + 1];
 
-            /*
+             /*
             words = ["abc", "ab"]
             If “abc” comes before “ab”, it implies that “abc” should come before any word
             starting with “ab”, which is impossible because “abc” itself starts with “ab”.
              */
-            if (first.length() > second.length() && first.startsWith(second)) {
+            if (s1.length() > s2.length() && s1.startsWith(s2)) {
                 return "";
             }
 
-            for (int j = 0; j < Math.min(first.length(), second.length()); j++) {
-                if (first.charAt(j) != second.charAt(j)) {
-                    char out = first.charAt(j);
-                    char in = second.charAt(j);
-                    if (!graph.get(out).contains(in)) {
-                        graph.get(out).add(in);
-                        indegree.put(in, indegree.get(in) + 1);
+            for (int j = 0; j < Math.min(s1.length(), s2.length()); j++) {
+                char ch1 = s1.charAt(j);
+                char ch2 = s2.charAt(j);
+                if (ch1 != ch2) {
+                    if (!graph.get(ch1).contains(ch2)) {
+                        graph.get(ch1).add(ch2);
+                        indegree.put(ch2, indegree.get(ch2) + 1);
                     }
                     break;
                 }
@@ -60,11 +60,7 @@ public class AlienDictionary {
             }
         }
 
-        if (sb.length() < indegree.size()) {
-            return "";
-        }
-
-        return sb.toString();
+        return sb.length() == indegree.size() ? sb.toString() : "";
     }
 
     public static void main(String[] args) {
