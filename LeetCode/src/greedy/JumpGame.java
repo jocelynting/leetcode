@@ -2,6 +2,7 @@ package greedy;
 
 public class JumpGame {
     public boolean canJump(int[] nums) {
+        /*
         int farthest = 0;
 
         for (int i = 0; i < nums.length; i++) {
@@ -12,6 +13,17 @@ public class JumpGame {
         }
 
         return true;
+         */
+        
+        int last = nums.length - 1;
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (i + nums[i] >= last) {
+                last = i;
+            }
+        }
+
+        return last == 0;
     }
 
     public static void main(String[] args) {

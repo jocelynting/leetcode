@@ -18,10 +18,6 @@ public class LowestCommonAncestorBinaryTree {
             return node;
         }
 
-        if (left == null && right == null) {
-            return null;
-        }
-
         return left == null ? right : left;
     }
 

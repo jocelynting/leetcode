@@ -4,45 +4,38 @@ import java.util.*;
 
 public class AccountsMerge {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        UnionFind uf = new UnionFind(accounts.size());
+        int n = accounts.size();
+        UnionFind uf = new UnionFind(n);
 
-        Map<String, Integer> emailGroup = new HashMap<>();
-
-        for (int i = 0; i < accounts.size(); i++) {
-            int accountSize = accounts.get(i).size();
-
-            for (int j = 1; j < accountSize; j++) {
-                String email = accounts.get(i).get(j);
-
-                if (!emailGroup.containsKey(email)) {
-                    emailGroup.put(email, i);
+        Map<String, Integer> emailIndex = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            List<String> info = accounts.get(i);
+            for (int j = 1; j < info.size(); j++) {
+                String email = info.get(j);
+                if (emailIndex.containsKey(email)) {
+                    uf.union(i, emailIndex.get(email));
                 } else {
-                    uf.union(i, emailGroup.get(email));
+                    emailIndex.put(email, i);
                 }
             }
         }
 
-        Map<Integer, List<String>> components = new HashMap<Integer, List<String>>();
-        for (String email : emailGroup.keySet()) {
-            int group = emailGroup.get(email);
-            int groupRep = uf.find(group);
-
-            if (!components.containsKey(groupRep)) {
-                components.put(groupRep, new ArrayList<String>());
-            }
-
-            components.get(groupRep).add(email);
+        Map<Integer, List<String>> emailMap = new HashMap<>();
+        for (String email : emailIndex.keySet()) {
+            int index = emailIndex.get(email);
+            int root = uf.find(index);
+            emailMap.computeIfAbsent(root, k -> new ArrayList<>()).add(email);
         }
 
-        List<List<String>> mergedAccounts = new ArrayList<>();
-        for (int group : components.keySet()) {
-            List<String> component = components.get(group);
-            Collections.sort(component);
-            component.add(0, accounts.get(group).get(0));
-            mergedAccounts.add(component);
+        List<List<String>> merge = new ArrayList<>();
+        for (int root : emailMap.keySet()) {
+            List<String> emails = emailMap.get(root);
+            Collections.sort(emails);
+            emails.add(0, accounts.get(root).get(0));
+            merge.add(emails);
         }
 
-        return mergedAccounts;
+        return merge;
     }
 
     public static void main(String[] args) {
