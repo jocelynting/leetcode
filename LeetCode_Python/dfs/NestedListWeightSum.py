@@ -1,8 +1,5 @@
-from typing import Union
-
-
 class NestedInteger:
-    def __init__(self, value: Union[int, list["NestedInteger"]] = None):
+    def __init__(self, value: tuple[int, list["NestedInteger"]] = None):
         if isinstance(value, int):
             self._integer = value
             self._list = None
@@ -13,7 +10,7 @@ class NestedInteger:
     def isInteger(self) -> bool:
         return self._integer is not None
 
-    def getInteger(self) -> Union[int, None]:
+    def getInteger(self) -> tuple[int, None]:
         return self._integer
 
     def getList(self) -> list["NestedInteger"]:

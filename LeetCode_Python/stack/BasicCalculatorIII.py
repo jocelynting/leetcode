@@ -1,9 +1,6 @@
-from typing import Union
-
-
 class BasicCalculatorIII:
     def calculate(self, s: str) -> int:
-        def helper(s: str, i: int) -> Union[int, int]:
+        def helper(s: str, i: int) -> tuple[int, int]:
             stack = []
             num = 0
             operator = "+"
