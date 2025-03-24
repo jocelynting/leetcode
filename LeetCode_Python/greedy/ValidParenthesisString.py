@@ -16,6 +16,7 @@ class ValidParenthesisString:
             if right < 0:
                 return False
 
+            # left 不能为负数，表示最坏情况下开放括号至少为 0
             if left < 0:
                 left = 0
 
