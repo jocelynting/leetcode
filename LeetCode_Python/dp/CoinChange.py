@@ -11,6 +11,10 @@ class CoinChange:
         return dp[amount] if dp[amount] != amount + 1 else -1
 
 
+# Time Complexity: O(n * m) where n is the amount and m is the number of coins
+# Space Complexity: O(n) where n is the amount
+
+
 if __name__ == "__main__":
     solution = CoinChange()
 
