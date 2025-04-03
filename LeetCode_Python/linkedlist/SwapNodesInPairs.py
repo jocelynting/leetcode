@@ -46,7 +46,10 @@ if __name__ == "__main__":
 
     print("Expected Output: 2 -> 1 -> 4 -> 3")
     result = solution.swapPairs(head1)
-    print("Actual Output:")
+    print("Actual Output:", end="")
     while result:
-        print(result.val, end=" -> " if result.next else "\n")
+        if result.next is None:
+            print(result.val)
+        else:
+            print(result.val, end=" -> ")
         result = result.next
