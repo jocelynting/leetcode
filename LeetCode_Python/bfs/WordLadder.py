@@ -28,6 +28,10 @@ class WordLadder:
         return 0
 
 
+# Time Complexity: O(n * m * 26), where n is the number of words in the wordList and m is the length of each word.
+# Space Complexity: O(n), where n is the number of words in the wordList, for storing the word_set and the queue.
+
+
 if __name__ == "__main__":
     solution = WordLadder()
 
