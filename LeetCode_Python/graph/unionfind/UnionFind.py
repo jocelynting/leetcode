@@ -2,6 +2,7 @@ class UnionFind:
     def __init__(self, size: int):
         self.parent = [i for i in range(size)]
         self.rank = [0] * size
+        self.count = size
 
     def find(self, p: int) -> int:
         if self.parent[p] != p:
@@ -20,3 +21,4 @@ class UnionFind:
             else:
                 self.parent[root_q] = root_p
                 self.rank[root_p] += 1
+            self.count -= 1
