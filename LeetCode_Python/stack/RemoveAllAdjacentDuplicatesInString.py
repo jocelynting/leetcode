@@ -9,6 +9,9 @@ class RemoveAllAdjacentDuplicatesInString:
         return "".join(res)
 
 
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+
 if __name__ == "__main__":
     solution = RemoveAllAdjacentDuplicatesInString()
 
