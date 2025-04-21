@@ -18,7 +18,30 @@ class Node:
 class PopulatingNextRightPointersInEachNode:
     def connect(self, root: "Node") -> "Node":
         if not root:
-            return None
+            return root
+
+        left_node = root
+
+        while left_node.left:
+            cur = left_node
+            while cur:
+                cur.left.next = cur.right
+
+                if cur.next:
+                    cur.right.next = cur.next.left
+
+                cur = cur.next
+
+            left_node = left_node.left
+
+        return root
+
+    # Time Complexity: O(n), where n is the number of nodes in the tree.
+    # Space Complexity: O(1), since we are using only constant space for pointers.
+
+    def connectByQueue(self, root: "Node") -> "Node":
+        if not root:
+            return root
 
         queue = deque([root])
 
@@ -40,9 +63,9 @@ class PopulatingNextRightPointersInEachNode:
 
         return root
 
+    # Time Complexity: O(n), where n is the number of nodes in the tree.
+    # Space Complexity: O(n), for the queue that stores the nodes at the current level.
 
-# Time Complexity: O(n), where n is the number of nodes in the tree.
-# Space Complexity: O(n), for the queue that stores the nodes at the current level.
 
 if __name__ == "__main__":
     solution = PopulatingNextRightPointersInEachNode()
@@ -56,6 +79,33 @@ if __name__ == "__main__":
     root.right.right = Node(7)
 
     result = solution.connect(root)
+
+    print("Expected Output:  1, None, 2, 3, None, 4, 5, 6, 7, None")
+    print("Actual Output: ", end="")
+    queue = deque([result])
+    while queue:
+        size = len(queue)
+        for _ in range(size):
+            node = queue.popleft()
+            if node:
+                print(node.val, end=", ")
+                queue.append(node.left)
+                queue.append(node.right)
+        if queue:
+            if queue[0]:
+                print("None", end=", ")
+            else:
+                print("None")
+
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    root.left.left = Node(4)
+    root.left.right = Node(5)
+    root.right.left = Node(6)
+    root.right.right = Node(7)
+
+    result = solution.connectByQueue(root)
 
     print("Expected Output:  1, None, 2, 3, None, 4, 5, 6, 7, None")
     print("Actual Output: ", end="")
