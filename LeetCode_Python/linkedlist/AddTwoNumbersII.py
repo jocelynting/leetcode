@@ -2,10 +2,22 @@ from typing import Optional
 from ListNode import ListNode
 
 
-class AddTwoNumbers:
+class AddTwoNumbersII:
     def addTwoNumbers(
         self, l1: Optional[ListNode], l2: Optional[ListNode]
     ) -> Optional[ListNode]:
+        def reverse(head: Optional[ListNode]) -> Optional[ListNode]:
+            prev = None
+            while head:
+                next_node = head.next
+                head.next = prev
+                prev = head
+                head = next_node
+            return prev
+
+        l1 = reverse(l1)
+        l2 = reverse(l2)
+
         carry = 0
         dummy = ListNode()
         cur = dummy
@@ -23,28 +35,31 @@ class AddTwoNumbers:
             cur = cur.next
             carry = total // 10
 
-        return dummy.next
+        return reverse(dummy.next)
 
 
 # Time Complexity: O(max(m, n)), where m and n are the lengths of the two linked lists
-# Space Complexity: O(1), we are using a constant amount of space for pointers
+# Space Complexity: O(max(m, n)), for the result linked list
 
 
 if __name__ == "__main__":
-    l1 = ListNode(2)
-    l1.next = ListNode(4)
-    l1.next.next = ListNode(3)
+    solution = AddTwoNumbersII()
+
+    l1 = ListNode(7)
+    l1.next = ListNode(2)
+    l1.next.next = ListNode(4)
+    l1.next.next.next = ListNode(3)
 
     l2 = ListNode(5)
     l2.next = ListNode(6)
     l2.next.next = ListNode(4)
 
-    solution = AddTwoNumbers()
     result = solution.addTwoNumbers(l1, l2)
-    print("Expected Output: [7, 0, 8]")
-
-    res = []
+    print("Expected Output:  7 -> 8 -> 0 -> 7")
+    print("Actual Output:", end=" ")
     while result:
-        res.append(result.val)
+        if result.next:
+            print(result.val, end=" -> ")
+        else:
+            print(result.val)
         result = result.next
-    print("Actual Output:", res)
