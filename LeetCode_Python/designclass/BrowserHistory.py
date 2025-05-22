@@ -1,20 +1,20 @@
 class BrowserHistory:
     def __init__(self, homepage: str):
-        self.stack = [homepage]
+        self.history = [homepage]
         self.index = 0
 
     def visit(self, url: str) -> None:
-        self.stack = self.stack[: self.index + 1]
-        self.stack.append(url)
+        self.history = self.history[: self.index + 1]
+        self.history.append(url)
         self.index += 1
 
     def back(self, steps: int) -> str:
         self.index = max(0, self.index - steps)
-        return self.stack[self.index]
+        return self.history[self.index]
 
     def forward(self, steps: int) -> str:
-        self.index = min(len(self.stack) - 1, self.index + steps)
-        return self.stack[self.index]
+        self.index = min(len(self.history) - 1, self.index + steps)
+        return self.history[self.index]
 
 
 if __name__ == "__main__":
