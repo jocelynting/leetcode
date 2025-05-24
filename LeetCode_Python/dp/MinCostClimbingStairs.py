@@ -17,9 +17,8 @@ class MinCostClimbingStairs:
         first = second = 0
 
         for i in range(2, n + 1):
-            temp = min(first + cost[i - 2], second + cost[i - 1])
-            first = second
-            second = temp
+            c = min(first + cost[i - 2], second + cost[i - 1])
+            first, second = second, c
 
         return second
 
