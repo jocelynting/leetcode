@@ -16,12 +16,14 @@ class MaximalSquare:
         for i in range(1, m):
             for j in range(1, n):
                 if matrix[i][j] == "1":
-                    dp[i][j] = (
-                        min(dp[i - 1][j], min(dp[i][j - 1], dp[i - 1][j - 1])) + 1
-                    )
+                    dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1
                     res = max(res, dp[i][j])
 
         return res * res
+
+
+# Time Complexity: O(m * n), where m is the number of rows and n is the number of columns in the matrix
+# Space Complexity: O(m * n), for the dp array
 
 
 if __name__ == "__main__":

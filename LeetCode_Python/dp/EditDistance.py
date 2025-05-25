@@ -19,6 +19,10 @@ class EditDistance:
         return dp[m][n]
 
 
+# Time Complexity: O(m * n), where m is the length of word1 and n is the length of word2.
+# Space Complexity: O(m * n), for the dp array used to store the edit distances.
+
+
 if __name__ == "__main__":
     solution = EditDistance()
 
