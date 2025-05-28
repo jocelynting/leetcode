@@ -6,20 +6,21 @@ class RussianDollEnvelopes:
         envelopes.sort(key=lambda x: (x[0], -x[1]))
 
         def lis(nums):
-            res = []
+            dp = []
             for num in nums:
-                index = bisect.bisect_left(res, num)
-                if index == len(res):
-                    res.append(num)
+                index = bisect.bisect_left(dp, num)
+                if index == len(dp):
+                    dp.append(num)
                 else:
-                    res[index] = num
-            return len(res)
+                    dp[index] = num
+            return len(dp)
 
         return lis([envelope[1] for envelope in envelopes])
 
 
-# Time Complexity: O(nlogn)
-# Space Complexity: O(n)
+# Time Complexity: O(nlogn), where n is the number of envelopes
+# The sorting step takes O(n log n) and the LIS step takes O(n log n) due to binary search.
+# Space Complexity: O(n), for the dp array used in the LIS function.
 
 if __name__ == "__main__":
     solution = RussianDollEnvelopes()
