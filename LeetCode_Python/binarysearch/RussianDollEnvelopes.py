@@ -6,14 +6,14 @@ class RussianDollEnvelopes:
         envelopes.sort(key=lambda x: (x[0], -x[1]))
 
         def lis(nums):
-            dp = []
+            lis = []
             for num in nums:
-                index = bisect.bisect_left(dp, num)
-                if index == len(dp):
-                    dp.append(num)
+                index = bisect.bisect_left(lis, num)
+                if index == len(lis):
+                    lis.append(num)
                 else:
-                    dp[index] = num
-            return len(dp)
+                    lis[index] = num
+            return len(lis)
 
         return lis([envelope[1] for envelope in envelopes])
 
