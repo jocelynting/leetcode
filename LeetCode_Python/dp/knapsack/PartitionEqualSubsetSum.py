@@ -5,7 +5,6 @@ class PartitionEqualSubsetSum:
             return False
 
         target = total // 2
-        n = len(nums)
         dp = [False] * (target + 1)
         dp[0] = True
 
