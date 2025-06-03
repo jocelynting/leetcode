@@ -1,20 +1,22 @@
 class DominoAndTrominoTiling:
     def numTilings(self, n: int) -> int:
-        if n == 0:
-            return 1
-        if n == 1:
-            return 1
-        if n == 2:
-            return 2
-
         mod = 10**9 + 7
-        dp = [0] * (n + 1)
-        dp[0], dp[1], dp[2] = 1, 1, 2
+
+        if n <= 2:
+            return n
+
+        f = [0] * (n + 1)
+        p = [0] * (n + 1)
+
+        f[1] = 1
+        f[2] = 2
+        p[2] = 1
 
         for i in range(3, n + 1):
-            dp[i] = (2 * dp[i - 1] + dp[i - 3]) % mod
+            f[i] = (f[i - 1] + f[i - 2] * 2 + p[i - 1]) % mod
+            p[i] = (f[i - 2] + p[i - 1]) % mod
 
-        return dp[n]
+        return f[n]
 
 
 # Time Complexity: O(n), where n is the length of the dominoes string.
