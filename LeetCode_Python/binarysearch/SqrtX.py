@@ -20,6 +20,24 @@ class SqrtX:
         # This is because left will be the first number whose square is greater than x.
         return right
 
+    def mySqrt2(self, x: int) -> int:
+        if x < 2:
+            return x
+
+        left, right = 2, x // 2 + 1
+
+        while left < right:
+            mid = left + (right - left) // 2
+            num = mid * mid
+            if num < x:
+                left = mid + 1
+            elif num > x:
+                right = mid
+            else:
+                return mid
+
+        return right - 1
+
 
 # Time Complexity: O(log n), where n is the input number x. The binary search reduces the search space by half in each iteration.
 # Space Complexity: O(1), as we are using a constant amount of space for variables.
@@ -29,6 +47,8 @@ if __name__ == "__main__":
 
     print("Expected Output: 2")
     print("Actual Output:", solution.mySqrt(8))
+    print("Actual Output:", solution.mySqrt2(8))
 
     print("Expected Output: 4")
     print("Actual Output:", solution.mySqrt(16))
+    print("Actual Output:", solution.mySqrt2(16))
